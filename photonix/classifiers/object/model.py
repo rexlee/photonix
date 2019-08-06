@@ -38,11 +38,11 @@ class ObjectModel(BaseModel):
                 return self.graph_cache[self.graph_cache_key]
 
             graph = tf.Graph()
-            graph_def = tf.GraphDef()
+            graph_def = tf.compat.v1.GraphDef()
 
             with graph.as_default():
-                od_graph_def = tf.GraphDef()
-                with tf.gfile.GFile(graph_file, 'rb') as fid:
+                od_graph_def = tf.compat.v1.GraphDef()
+                with tf.io.gfile.GFile(graph_file, 'rb') as fid:
                     serialized_graph = fid.read()
                     od_graph_def.ParseFromString(serialized_graph)
                     tf.import_graph_def(od_graph_def, name='')
@@ -63,7 +63,7 @@ class ObjectModel(BaseModel):
         with self.graph.as_default():
             with tf.Session() as sess:
                 # Get handles to input and output tensors
-                ops = tf.get_default_graph().get_operations()
+                ops = tf.compat.v1.get_default_graph.get_operations()
                 all_tensor_names = {output.name for op in ops for output in op.outputs}
                 tensor_dict = {}
                 for key in [
