@@ -16,6 +16,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = str(Path(__file__).parent.parent.resolve())
+print(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -24,8 +25,7 @@ BASE_DIR = str(Path(__file__).parent.parent.resolve())
 SECRET_KEY = 'r*z#sh2aqb!zjz#s7h@5&toyx@t_r4nfrgwg%r$4)2@d@8ypyb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('ENV', 'prd') != 'prd'
-
+DEBUG = True #os.environ.get('ENV', 'prd') != 'prd'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,[::1]').split(',')
 
 
@@ -82,7 +82,7 @@ DATABASES = {
         'HOST':     os.environ.get('POSTGRES_HOST', '127.0.0.1'),
         'NAME':     os.environ.get('POSTGRES_DB', 'photonix'),
         'USER':     os.environ.get('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
     }
 }
 
@@ -119,12 +119,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+print(os.path.exists('/data'))
 if os.path.exists('/data'):
     DATA_DIR = str(Path('/data'))
 else:
     DATA_DIR = str(Path(BASE_DIR).parent / 'data')
-
+print(DATA_DIR)
 CACHE_DIR = str(Path(DATA_DIR) / 'cache')
 MODEL_DIR = str(Path(DATA_DIR) / 'models')
 
@@ -149,14 +149,15 @@ PHOTO_INPUT_DIRS = [str(Path(BASE_DIR).parent.parent / 'photos_to_import')]
 PHOTO_OUTPUT_DIRS = [
     {
         'EXTENSIONS': ['jpg', 'jpeg', 'mov', 'mp4', 'm4v', '3gp'],
-        'PATH': '/data/photos',
+        'PATH': str(Path(DATA_DIR) / 'photos'),
     },
     {
         'EXTENSIONS': ['cr2'],
-        'PATH': '/data/raw-photos',
+        'PATH': str(Path(DATA_DIR) / 'raw-photos'),
     },
 ]
-PHOTO_RAW_PROCESSED_DIR = '/data/raw-photos-processed'
+print(PHOTO_INPUT_DIRS,PHOTO_OUTPUT_DIRS)
+PHOTO_RAW_PROCESSED_DIR = str(Path(DATA_DIR) / 'raw-photos-processed')
 
 MODEL_INFO_URL = 'https://photonix.org/models.json'
 

@@ -35,7 +35,7 @@ class LocationModel(BaseModel):
 
     def load_cities(self, cities_file):
         rows = []
-        with open(cities_file) as csvfile:
+        with open(cities_file, encoding='latin1') as csvfile:
             reader = csv.reader(csvfile, delimiter='\t')
             for row in reader:
                 rows.append(row)

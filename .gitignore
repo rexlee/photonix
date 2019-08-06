@@ -102,3 +102,4 @@ data/photos/*.*
 
 # OS files
 .DS_Store
+.vscode/settings.json

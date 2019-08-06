@@ -17,7 +17,7 @@ class Command(BaseCommand):
             exit(1)
 
         for path in paths:
-            import_photos_from_dir(path)
+            import_photos_from_dir(path,True)
 
     def handle(self, *args, **options):
         self.import_photos(options['paths'])

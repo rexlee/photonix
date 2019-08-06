@@ -40,7 +40,7 @@ olefile==0.46
 parso==0.3.1
 pexpect==4.6.0
 pickleshare==0.7.5
-Pillow==4.0.0
+Pillow==6.1.0
 pluggy==0.8.1
 promise==2.2.1
 prompt-toolkit==2.0.7
@@ -63,8 +63,8 @@ rq==0.13.0
 Rx==1.6.1
 singledispatch==3.4.0.3
 six==1.12.0
-tensorboard==1.12.2
-tensorflow==1.12.0
+tensorboard==1.14.0
+tensorflow==1.14.0
 termcolor==1.1.0
 text-unidecode==1.2
 traitlets==4.3.2

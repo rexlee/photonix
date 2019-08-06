@@ -1,21 +1,20 @@
-version: "2"
+version: "3.7"
 
 services:
   postgres:
-    container_name: photonix-postgres
     image: postgres:11.1-alpine
     environment:
       POSTGRES_DB: photonix
       POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_database:/var/lib/postgresql/data
 
   redis:
-    container_name: photonix-redis
     image: redis:3.2.8
 
   photonix:
-    container_name: photonix
     image: damianmoore/photonix:latest
     ports:
       - "8888:80"
@@ -28,10 +27,13 @@ services:
       REDIS_HOST: redis
       ALLOWED_HOSTS: localhost,example.com
     volumes:
-      - ./data/photos:/data/photos
-      - ./data/raw-photos-processed:/data/raw-photos-processed
-      - ./data/cache:/data/cache
-      - ./data/models:/data/models
-    links:
+      - /D/docker/photonix/data/photos:/data/photos
+      - /D/docker/photonix/data/raw-photos-processed:/data/raw-photos-processed
+      - /D/docker/photonix/data/cache:/data/cache
+      - /D/docker/photonix/data/models:/data/models
+    depends_on:
       - postgres
       - redis
+volumes:
+  postgres_database:
+    external: true
